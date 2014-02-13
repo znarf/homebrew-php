@@ -8,6 +8,7 @@ class Php55Memcached < AbstractPhp55Extension
   head 'https://github.com/php-memcached-dev/php-memcached.git'
 
   option 'with-igbinary', "Build with igbinary support"
+  option 'with-sasl', "Build with sasl support"
   depends_on 'libmemcached'
   depends_on 'php55-igbinary' if build.include?('with-igbinary')
 
@@ -26,6 +27,7 @@ class Php55Memcached < AbstractPhp55Extension
     args << phpconfig
     args << "--with-libmemcached-dir=#{Formula.factory('libmemcached').opt_prefix}"
     args << "--enable-memcached-igbinary" if build.include? 'with-igbinary'
+    args << "--enable-memcached-sasl" if build.include? 'with-sasl'
 
     safe_phpize
 
