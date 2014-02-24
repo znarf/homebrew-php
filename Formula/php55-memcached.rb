@@ -9,7 +9,11 @@ class Php55Memcached < AbstractPhp55Extension
 
   option 'with-igbinary', "Build with igbinary support"
   option 'with-sasl', "Build with sasl support"
-  depends_on 'libmemcached'
+  if build.with? "sasl"
+    depends_on "libmemcached" => "with-sasl"
+  else
+    depends_on "libmemcached"
+  end
   depends_on 'php55-igbinary' if build.include?('with-igbinary')
 
   def patches
